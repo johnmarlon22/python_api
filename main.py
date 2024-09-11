@@ -9,7 +9,7 @@ app = FastAPI()
 
 #Defino la clase modelo
 class Curso(BaseModel):
-    id: str
+    id: Optional[str] = None
     nombre: str
     descripcion: Optional[str] = None
     nivel: str
@@ -30,6 +30,7 @@ def obtener_cursos():
 def crear_curso(curso:Curso):
     curso.id = str(uuid.uuid4()) # Uso UUID para generar un ID único
     cursos_db.append(curso)
+    return curso
 
 #CRUD: Read (Lectura) metodo GET individual:
 @app.get('/cursos/{curso_id}',response_model=Curso)
